@@ -17,6 +17,8 @@ import com.example.snickers.auto.DB.ContactDao;
 import com.example.snickers.auto.DB.ContactModel;
 import com.example.snickers.auto.R;
 
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
@@ -42,8 +44,9 @@ public class AutoAdapter extends RecyclerView.Adapter<AutoAdapter.AutoViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull AutoViewHolder holder, int position) {
+        DecimalFormat decimalFormat = new DecimalFormat("#,##0.00");
         ContactModel item = date.get(position);
-        holder.textView.setText(item.getType() + "  " + item.getPrice() + "  " + item.getDistance() + "  " + item.getVolume() + "    " + item.getTogether() + "  " + item.getDate() + "");
+        holder.textView.setText(item.getType() + "  " + item.getPrice() + "  " + item.getDistance() + "  " + item.getVolume() + "    " + decimalFormat.format(new BigDecimal(item.getTogether())) + "  " + item.getDate() + "");
         holder.relativelay.setOnLongClickListener(view ->{dialog(v, position); return true;} );
         holder.relativelay.setOnClickListener(view ->{dialogupdate(v, position); } );
 
@@ -75,7 +78,7 @@ public class AutoAdapter extends RecyclerView.Adapter<AutoAdapter.AutoViewHolder
 
     void dialog(View v, int position) {
         AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
-        builder.setTitle("FanSerial")
+        builder.setTitle("Delete")
                 .setMessage("Видалити запис ?")
                 .setCancelable(false)
                 .setPositiveButton("Tак",

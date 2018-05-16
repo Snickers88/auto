@@ -9,7 +9,9 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
+import android.text.InputFilter;
 import android.text.InputType;
+import android.text.Spanned;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -18,6 +20,9 @@ import android.widget.EditText;
 import android.widget.Spinner;
 
 import java.io.IOException;
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
+import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
@@ -31,12 +36,15 @@ import com.example.snickers.auto.DB.ContactModel;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Create_note extends AppCompatActivity {
-    EditText etdistancecreate1, etvolumecreate1, ettogethercreate, etpricecreate1, etdatecreate1;
+    EditText etdistancecreate1, etvolumecreate1, ettogethercreate1, etpricecreate1, etdatecreate1;
     FloatingActionButton floatingActionButton;
     Spinner spinner;
     ContactModel item;
+    double sum;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,14 +54,19 @@ public class Create_note extends AppCompatActivity {
         etdatecreate1 = findViewById(R.id.etdatecreate);
         etdistancecreate1 = findViewById(R.id.etdistancecreate);
         etvolumecreate1 = findViewById(R.id.etvolumecreate);
-        ettogethercreate = findViewById(R.id.ettogether);
+        ettogethercreate1 = findViewById(R.id.ettogether);
         etpricecreate1 = findViewById(R.id.etpricecreate);
         spinner = findViewById(R.id.spinner);
                 floatingActionButton = findViewById(R.id.floatingActionButton3f);
         etpricecreate1.setRawInputType(InputType.TYPE_CLASS_NUMBER);
         etdistancecreate1.setRawInputType(InputType.TYPE_CLASS_NUMBER);
         etvolumecreate1.setRawInputType(InputType.TYPE_CLASS_NUMBER);
-        ettogethercreate.setRawInputType(InputType.TYPE_CLASS_NUMBER);
+        ettogethercreate1.setRawInputType(InputType.TYPE_CLASS_NUMBER);
+        etpricecreate1.setFilters(new InputFilter[] {new DecimalDigitsInputFilter(2)});
+        etvolumecreate1.setFilters(new InputFilter[] {new DecimalDigitsInputFilter(2)});
+
+
+
         SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
         String date = sdf.format(new Date(System.currentTimeMillis()));
         etdatecreate1.setText(date);
@@ -68,7 +81,7 @@ public class Create_note extends AppCompatActivity {
             etdatecreate1.setText(item.getDate());
             etdistancecreate1.setText(item.getDistance()+"");
             etvolumecreate1.setText(item.getVolume()+"");
-            ettogethercreate.setText(item.getTogether()+"");
+            ettogethercreate1.setText(item.getTogether()+"");
             etpricecreate1.setText(item.getPrice()+"");
         }
         etdatecreate1.setOnClickListener(t -> {
@@ -92,7 +105,10 @@ public class Create_note extends AppCompatActivity {
                     Integer.parseInt(etdistancecreate1.getText().toString()),
                     Double.parseDouble(etvolumecreate1.getText().toString()),
                     Double.parseDouble(etpricecreate1.getText().toString()),
-                    Double.parseDouble (etvolumecreate1.getText().toString()) * Double.parseDouble(etpricecreate1.getText().toString()),
+                 //   Double.parseDouble(s2),
+                   // Double.parseDouble(ettogethercreate1.getText().toString()),
+
+                  Double.parseDouble (etvolumecreate1.getText().toString()) * Double.parseDouble(etpricecreate1.getText().toString()),
        spinner.getSelectedItem().toString()
             )){
               Intent inthomefra = new Intent(this, MainActivity.class);
@@ -107,7 +123,9 @@ public class Create_note extends AppCompatActivity {
                     Integer.parseInt(etdistancecreate1.getText().toString()),
                     Double.parseDouble(etvolumecreate1.getText().toString()),
                     Double.parseDouble(etpricecreate1.getText().toString()),
-                    Double.parseDouble (etvolumecreate1.getText().toString()) * Double.parseDouble(etpricecreate1.getText().toString()),
+                    //ettogethercreate1.getText().toString(),
+
+                     Double.parseDouble (etvolumecreate1.getText().toString()) * Double.parseDouble(etpricecreate1.getText().toString()),
                     spinner.getSelectedItem().toString()
             ))
             {
@@ -122,6 +140,22 @@ public class Create_note extends AppCompatActivity {
 
     }
 
+    public class DecimalDigitsInputFilter implements InputFilter {
+        Pattern mPattern;
+        public DecimalDigitsInputFilter(int digitsAfterZero) {
+            mPattern=Pattern.compile("[0-9]+((\\.[0-9]{0," + (digitsAfterZero-1) + "})?)||(\\.)?");
+        }
+        @Override
+        public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
+
+            Matcher matcher=mPattern.matcher(dest);
+            if(!matcher.matches())
+                return "";
+            return null;
+        }
+    }
+
+
 
     private final TextWatcher textWatcher = new TextWatcher() {
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -133,11 +167,13 @@ public class Create_note extends AppCompatActivity {
 
         //Задаем действия для TextView после смены введенных в EditText символов:
         public void afterTextChanged(Editable s) {
+            DecimalFormat decimalFormat = new DecimalFormat("#,##0.00");
+
             try {
                double q = Double.parseDouble(etvolumecreate1.getText().toString());
                 double q1 = Double.parseDouble(etpricecreate1.getText().toString());
-                double sum = q * q1;
-                ettogethercreate.setText(Double.toString(sum));
+                 sum = q * q1;
+                ettogethercreate1.setText(decimalFormat.format(new BigDecimal(sum  +"")));
                // tvvolume.setVisibility(View.VISIBLE);
             }catch (Exception ex){}
         }

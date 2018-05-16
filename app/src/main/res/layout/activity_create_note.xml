@@ -15,6 +15,7 @@
         android:ems="10"
         android:inputType="textPersonName"
         tools:text="Name"
+        android:hint="@string/distance"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -26,6 +27,7 @@
         android:layout_alignParentTop="true"
         android:layout_marginTop="130dp"
         android:ems="10"
+        android:hint="@string/price"
         android:inputType="textPersonName"
         tools:text="Name"
         app:layout_constraintEnd_toEndOf="parent"
@@ -42,6 +44,7 @@
         android:inputType="textPersonName"
         android:singleLine="false"
         tools:text="Name"
+        android:hint="@string/together"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -53,6 +56,7 @@
         android:layout_below="@+id/ettogether"
         android:layout_marginTop="-176dp"
         android:ems="10"
+        android:hint="Volume"
         android:inputType="textPersonName"
         tools:text="Name" />
 

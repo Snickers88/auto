@@ -5,7 +5,9 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
+import android.text.InputFilter;
 import android.text.InputType;
+import android.text.Spanned;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -18,12 +20,14 @@ import android.widget.TextView;
 
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Calculator extends android.support.v4.app.Fragment  {
     EditText etcost, etdistance, etprice;
     TextView tvcost, tvvolume;
     Button button;
-    double k, k1;
+    double sum;
 
 
     @Override
@@ -52,6 +56,10 @@ public class Calculator extends android.support.v4.app.Fragment  {
         etcost.setRawInputType(InputType.TYPE_CLASS_NUMBER);
         etprice.setRawInputType(InputType.TYPE_CLASS_NUMBER);
         etdistance.setRawInputType(InputType.TYPE_CLASS_NUMBER);
+
+        etdistance.setFilters(new InputFilter[] {new DecimalDigitsInputFilter(2)});
+        etprice.setFilters(new InputFilter[] {new DecimalDigitsInputFilter(2)});
+        etcost.setFilters(new InputFilter[] {new DecimalDigitsInputFilter(2)});
       //  button = (Button) view.findViewById(R.id.button);
         /* Set Text Watcher listener */
         etdistance.addTextChangedListener( textWatcher);
@@ -62,6 +70,25 @@ public class Calculator extends android.support.v4.app.Fragment  {
 
 
     }
+
+    public class DecimalDigitsInputFilter implements InputFilter {
+        Pattern mPattern;
+        public DecimalDigitsInputFilter(int digitsAfterZero) {
+            mPattern=Pattern.compile("[0-9]+((\\.[0-9]{0," + (digitsAfterZero-1) + "})?)||(\\.)?");
+        }
+        @Override
+        public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
+
+            Matcher matcher=mPattern.matcher(dest);
+            if(!matcher.matches())
+                return "";
+            return null;
+        }
+    }
+
+
+
+
     private final  TextWatcher textWatcher = new TextWatcher() {
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
         }
@@ -72,12 +99,15 @@ public class Calculator extends android.support.v4.app.Fragment  {
 
         //Задаем действия для TextView после смены введенных в EditText символов:
         public void afterTextChanged(Editable s) {
+            DecimalFormat decimalFormat = new DecimalFormat("#,##0.00");
             try {
-                k = Double.parseDouble(etcost.getText().toString());
-                k1 = Double.parseDouble(etdistance.getText().toString());
-                double sum = (k1 * k) /100;
-                tvvolume.setText(Double.toString(sum));
-                tvvolume.setVisibility(View.VISIBLE);
+              double  k = Double.parseDouble(etcost.getText().toString());
+              double  k1 = Double.parseDouble(etdistance.getText().toString());
+                 sum = (k1 * k) /100;
+               // tvvolume.setText(Double.toString(sum));
+                tvvolume.setText(decimalFormat.format(new BigDecimal(sum +"")));
+               tvvolume.setVisibility(View.VISIBLE);
+                getFinalSum();
             }catch (Exception ex){}
         }
     };
@@ -85,28 +115,34 @@ public class Calculator extends android.support.v4.app.Fragment  {
 
     private final  TextWatcher  textWatcher2  = new TextWatcher() {
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
         }
 
         public void onTextChanged(CharSequence s, int start, int before, int count) {
-            //  mTextHint.setVisibility(View.VISIBLE);
+
         }
 
         //Задаем действия для TextView после смены введенных в EditText символов:
         public void afterTextChanged(Editable s) {
             getFinalSum();
+
         }
     };
 
-    private void getFinalSum(){
+    private void getFinalSum() {
         DecimalFormat df = new DecimalFormat("#,##0.00");
         try {
             if (tvvolume.getText() != null) {
-                double z = Double.parseDouble(tvvolume.getText().toString());
-                double finalSum = z * Double.parseDouble(etprice.getText().toString());
+                //  double z = Double.parseDouble(tvvolume.getText().toString());
+                //double z = 5;
+                double z1 = Double.parseDouble(etprice.getText().toString());
+                double finalSum = sum * z1;
                 tvcost.setText(df.format(new BigDecimal(finalSum +"")));
+                tvcost.setVisibility(View.VISIBLE);
 
 
             }
         }catch (Exception ex){}
     }
+
 }
