@@ -27,6 +27,7 @@ import com.jjoe64.graphview.series.LineGraphSeries;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 
 public class Graphics extends Fragment {
@@ -42,8 +43,11 @@ public class Graphics extends Fragment {
         View v = inflater.inflate(R.layout.activity_graphics, container, false);
         ContactDao contactDao = new ContactDao(v);
         contactModel.addAll(contactDao.select());
-        sort(contactModel);
-
+        Collections.sort(contactModel, (o1, o2) -> {
+            if (o1.getDate() == null || o2.getDate() == null)
+                return 0;
+            return o1.getDate().compareTo(o2.getDate());
+        });
         datePoint = new DataPoint[contactModel.size()];
 
         int i = 0;
@@ -52,12 +56,11 @@ public class Graphics extends Fragment {
         String dateFirst[] = contactModel.get(0).getDate().split(":");
 
         for (ContactModel item : contactModel) {
-          //  String date[] = item.getDate().split(":");
-           // datePoint[i] = (new DataPoint(Integer.parseInt(date[0]), item.getTogether()));
+
             SimpleDateFormat format = new SimpleDateFormat("dd:MM:yyyy");
             try {
-                Date date= format.parse(item.getDate());
-               datePoint[i] = (new DataPoint(date, item.getTogether()));
+                Date date = format.parse(item.getDate());
+                datePoint[i] = (new DataPoint(date, item.getTogether()));
 
             } catch (ParseException e) {
                 e.printStackTrace();
@@ -66,7 +69,6 @@ public class Graphics extends Fragment {
             i++;
         }
 
-
         GraphView graph = v.findViewById(R.id.graph);
         LineGraphSeries<DataPoint> series = new LineGraphSeries<>(datePoint);
         graph.addSeries(series);
@@ -74,16 +76,16 @@ public class Graphics extends Fragment {
         graph.getViewport().setXAxisBoundsManual(true);
         SimpleDateFormat format = new SimpleDateFormat("dd:MM:yyyy");
         try {
-            Date date= format.parse(contactModel.get(0).getDate());
+            Date date = format.parse(contactModel.get(0).getDate());
 
-            graph.getViewport().setMinX(date.getTime()-10000000);
-            date= format.parse(contactModel.get(1).getDate());
+            graph.getViewport().setMinX(date.getTime() - 10000000);
+            date = format.parse(contactModel.get(1).getDate());
 
-            graph.getViewport().setMaxX(date.getTime()+10000000);
+            graph.getViewport().setMaxX(date.getTime() + 10000000);
         } catch (ParseException e) {
             e.printStackTrace();
         }
- graph.getGridLabelRenderer().setLabelFormatter(new DateAsXAxisLabelFormatter(graph.getContext()));
+        graph.getGridLabelRenderer().setLabelFormatter(new DateAsXAxisLabelFormatter(graph.getContext()));
 
         graph.getGridLabelRenderer().setNumHorizontalLabels(3);
 
@@ -94,57 +96,36 @@ public class Graphics extends Fragment {
 
         graph.getLegendRenderer().setAlign(LegendRenderer.LegendAlign.TOP);
         return v;
-
-
     }
 
-    void sort(ArrayList<ContactModel> contactModels) {
 
-        for (int j = 0; j < contactModels.size(); j++) {
-            String date11[] = contactModels.get(j).getDate().split(":");
-            for (int i = j; i < contactModels.size(); i++) {
-                String date2[] = contactModels.get(i).getDate().split(":");
-                if (Integer.parseInt(date11[2]) > Integer.parseInt(date2[2])) {
-                    ContactModel item = contactModels.get(i);
-                    contactModels.remove(i);
-                    contactModels.add(i, contactModels.get(j));
-                    int t = contactModels.size();
-                    contactModels.remove(j);
-                    contactModels.add(j, item);
-                }
-            }
+    public static class MyObject implements Comparable<ContactModel> {
+
+        private Date dateTime;
+
+        public Date getDateTime() {
+            return dateTime;
+        }
+
+        public void setDateTime(Date datetime) {
+            this.dateTime = datetime;
         }
 
 
-        for (int j = 0; j < contactModels.size(); j++) {
-            String date11[] = contactModels.get(j).getDate().split(":");
-            for (int i = j; i < contactModels.size(); i++) {
-                String date2[] = contactModels.get(i).getDate().split(":");
-                if (Integer.parseInt(date11[1]) > Integer.parseInt(date2[1]) && Integer.parseInt(date11[2]) == Integer.parseInt(date2[2])) {
-                    ContactModel item = contactModels.get(i);
-                    contactModels.remove(i);
-                    contactModels.add(i, contactModels.get(j));
-                    int t = contactModels.size();
-                    contactModels.remove(j);
-                    contactModels.add(j, item);
-                }
-            }
-        }
-        for (int j = 0; j < contactModels.size(); j++) {
-            String date11[] = contactModels.get(j).getDate().split(":");
-            for (int i = j; i < contactModels.size(); i++) {
-                String date2[] = contactModels.get(i).getDate().split(":");
-                if (Integer.parseInt(date11[0]) > Integer.parseInt(date2[0]) && Integer.parseInt(date11[2]) == Integer.parseInt(date2[2])
-                        && Integer.parseInt(date11[1]) == Integer.parseInt(date2[1])) {
-                    ContactModel item = contactModels.get(i);
-                    contactModels.remove(i);
-                    contactModels.add(i, contactModels.get(j));
-                    int t = contactModels.size();
-                    contactModels.remove(j);
-                    contactModels.add(j, item);
-                }
-            }
-        }
+        @Override
+        public int compareTo(@NonNull ContactModel o) {
+            if (getDateTime() == null || o.getDate() == null)
+                return 0;
+            SimpleDateFormat format = new SimpleDateFormat("dd:MM:yyyy");
+            Date date1 = null;
+            try {
+                date1 = format.parse(o.getDate());
 
+
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            return getDateTime().compareTo(date1);
+        }
     }
 }
