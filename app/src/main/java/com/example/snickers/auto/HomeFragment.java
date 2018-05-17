@@ -43,8 +43,19 @@ public class HomeFragment extends Fragment {
 
         Collections.sort(contactModels, (o1, o2) -> {
             if (o1.getDate() == null || o2.getDate() == null)
+
                 return 0;
-            return o1.getDate().compareTo(o2.getDate());
+            SimpleDateFormat format = new SimpleDateFormat("dd:MM:yyyy");
+            Date date1 = null;
+            Date date2 = null;
+            try {
+                date1 = format.parse(o1.getDate());
+                date2=format.parse(o2.getDate());
+
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            return date1.compareTo( date2);
         });
         autoAdapter.setDate(contactModels);
 
@@ -83,14 +94,15 @@ public class HomeFragment extends Fragment {
                 return 0;
             SimpleDateFormat format = new SimpleDateFormat("dd:MM:yyyy");
             Date date1 = null;
+            Date date2 = null;
             try {
                 date1 = format.parse(o.getDate());
-
+                date2=format.parse(getDateTime().toString());
 
             } catch (ParseException e) {
                 e.printStackTrace();
             }
-            return getDateTime().compareTo(date1);
+            return date2.compareTo(date1);
         }
     }
 }
