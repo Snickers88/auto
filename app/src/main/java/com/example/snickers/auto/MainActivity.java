@@ -66,6 +66,9 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             case R.id.navigation_notifications2:
                 fragment = new Graphics();
                 break;
+            case R.id.navigation_notifications3:
+                fragment = new Reminder();
+                break;
 
         }
 
