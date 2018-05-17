@@ -13,6 +13,7 @@ import android.text.InputFilter;
 import android.text.InputType;
 import android.text.Spanned;
 import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
@@ -45,6 +46,7 @@ public class Create_note extends AppCompatActivity {
     Spinner spinner;
     ContactModel item;
     double sum;
+    double sum2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +64,8 @@ public class Create_note extends AppCompatActivity {
         etdistancecreate1.setRawInputType(InputType.TYPE_CLASS_NUMBER);
         etvolumecreate1.setRawInputType(InputType.TYPE_CLASS_NUMBER);
         ettogethercreate1.setRawInputType(InputType.TYPE_CLASS_NUMBER);
+
+
         etpricecreate1.setFilters(new InputFilter[] {new DecimalDigitsInputFilter(2)});
         etvolumecreate1.setFilters(new InputFilter[] {new DecimalDigitsInputFilter(2)});
 
@@ -76,6 +80,9 @@ public class Create_note extends AppCompatActivity {
 //        ettogethercreate.addTextChangedListener( textWatcher);
        etvolumecreate1.addTextChangedListener( textWatcher);
         etpricecreate1.addTextChangedListener( textWatcher);
+        etpricecreate1.addTextChangedListener( textWatcher2);
+        ettogethercreate1.addTextChangedListener( textWatcher2);
+
         item = (ContactModel) getIntent().getSerializableExtra("item");
         if (item !=(null)){
             etdatecreate1.setText(item.getDate());
@@ -175,6 +182,29 @@ public class Create_note extends AppCompatActivity {
                  sum = q * q1;
                 ettogethercreate1.setText(decimalFormat.format(new BigDecimal(sum  +"")));
                // tvvolume.setVisibility(View.VISIBLE);
+            }catch (Exception ex){}
+        }
+    };
+
+
+    private final TextWatcher textWatcher2 = new TextWatcher() {
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+        }
+
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+            //  mTextHint.setVisibility(View.VISIBLE);
+        }
+
+        //Задаем действия для TextView после смены введенных в EditText символов:
+        public void afterTextChanged(Editable s) {
+            DecimalFormat decimalFormat = new DecimalFormat("#,##0.00");
+
+            try {
+                double w = Double.parseDouble(ettogethercreate1.getText().toString());
+                double w1 = Double.parseDouble(etpricecreate1.getText().toString());
+                 sum2 = w * w1;
+                etvolumecreate1.setText(decimalFormat.format(new BigDecimal(sum2  +"")));
+                // tvvolume.setVisibility(View.VISIBLE);
             }catch (Exception ex){}
         }
     };
