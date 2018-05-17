@@ -18,8 +18,14 @@ import com.example.snickers.auto.Adapter.AutoAdapter;
 import com.example.snickers.auto.DB.ContactDao;
 import com.example.snickers.auto.DB.ContactModel;
 import com.example.snickers.auto.DB.DBHelper;
+import com.jjoe64.graphview.series.DataPoint;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
 
 public class HomeFragment extends Fragment {
 
@@ -35,7 +41,22 @@ public class HomeFragment extends Fragment {
         contactModels.addAll(contactdao.select());
 
 
-        sort(contactModels);
+        Collections.sort(contactModels, (o1, o2) -> {
+            if (o1.getDate() == null || o2.getDate() == null)
+
+                return 0;
+            SimpleDateFormat format = new SimpleDateFormat("dd:MM:yyyy");
+            Date date1 = null;
+            Date date2 = null;
+            try {
+                date1 = format.parse(o1.getDate());
+                date2=format.parse(o2.getDate());
+
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            return date1.compareTo( date2);
+        });
         autoAdapter.setDate(contactModels);
 
         rv = v.findViewById(R.id.rvListview);
@@ -52,53 +73,36 @@ public class HomeFragment extends Fragment {
 
     }
 
-    void sort(ArrayList<ContactModel> contactModels) {
 
-        for (int j = 0; j < contactModels.size(); j++) {
-            String date11[] = contactModels.get(j).getDate().split(":");
-            for (int i = j; i < contactModels.size(); i++) {
-                String date2[] = contactModels.get(i).getDate().split(":");
-                if (Integer.parseInt(date11[2]) > Integer.parseInt(date2[2])) {
-                    ContactModel item = contactModels.get(i);
-                    contactModels.remove(i);
-                    contactModels.add(i, contactModels.get(j));
-                    int t = contactModels.size();
-                    contactModels.remove(j);
-                    contactModels.add(j, item);
-                }
-            }
+
+    public static class MyObject implements Comparable<ContactModel> {
+
+        private Date dateTime;
+
+        public Date getDateTime() {
+            return dateTime;
+        }
+
+        public void setDateTime(Date datetime) {
+            this.dateTime = datetime;
         }
 
 
-        for (int j = 0; j < contactModels.size(); j++) {
-            String date11[] = contactModels.get(j).getDate().split(":");
-            for (int i = j; i < contactModels.size(); i++) {
-                String date2[] = contactModels.get(i).getDate().split(":");
-                if (Integer.parseInt(date11[1]) > Integer.parseInt(date2[1]) && Integer.parseInt(date11[2]) == Integer.parseInt(date2[2])) {
-                    ContactModel item = contactModels.get(i);
-                    contactModels.remove(i);
-                    contactModels.add(i, contactModels.get(j));
-                    int t = contactModels.size();
-                    contactModels.remove(j);
-                    contactModels.add(j, item);
-                }
-            }
-        }
-        for (int j = 0; j < contactModels.size(); j++) {
-            String date11[] = contactModels.get(j).getDate().split(":");
-            for (int i = j; i < contactModels.size(); i++) {
-                String date2[] = contactModels.get(i).getDate().split(":");
-                if (Integer.parseInt(date11[0]) > Integer.parseInt(date2[0]) && Integer.parseInt(date11[2]) == Integer.parseInt(date2[2])
-                        && Integer.parseInt(date11[1]) == Integer.parseInt(date2[1])) {
-                    ContactModel item = contactModels.get(i);
-                    contactModels.remove(i);
-                    contactModels.add(i, contactModels.get(j));
-                    int t = contactModels.size();
-                    contactModels.remove(j);
-                    contactModels.add(j, item);
-                }
-            }
-        }
+        @Override
+        public int compareTo(@NonNull ContactModel o) {
+            if (getDateTime() == null || o.getDate() == null)
+                return 0;
+            SimpleDateFormat format = new SimpleDateFormat("dd:MM:yyyy");
+            Date date1 = null;
+            Date date2 = null;
+            try {
+                date1 = format.parse(o.getDate());
+                date2=format.parse(getDateTime().toString());
 
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            return date2.compareTo(date1);
+        }
     }
 }

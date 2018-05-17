@@ -1,39 +1,41 @@
 package com.example.snickers.auto;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Adapter;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 
 import com.example.snickers.auto.DB.ContactDao;
 import com.example.snickers.auto.DB.ContactModel;
-import com.jjoe64.graphview.GraphView;
-import com.jjoe64.graphview.LegendRenderer;
-import com.jjoe64.graphview.helper.DateAsXAxisLabelFormatter;
 import com.jjoe64.graphview.series.DataPoint;
-import com.jjoe64.graphview.series.LineGraphSeries;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
+import java.util.List;
+
+import lecho.lib.hellocharts.model.Axis;
+import lecho.lib.hellocharts.model.AxisValue;
+import lecho.lib.hellocharts.model.Line;
+import lecho.lib.hellocharts.model.LineChartData;
+import lecho.lib.hellocharts.model.PointValue;
+import lecho.lib.hellocharts.view.LineChartView;
 
 public class Graphics extends Fragment {
-    DataPoint[] datePoint;
+    private DataPoint[] datePoint;
 
-    ArrayList<ContactModel> contactModel = new ArrayList<>();
-
+    private ArrayList<ContactModel> contactModel = new ArrayList<>();
+    private View v;
+    LineChartView lineChartView;
 
     @Nullable
     @Override
@@ -42,109 +44,108 @@ public class Graphics extends Fragment {
         View v = inflater.inflate(R.layout.activity_graphics, container, false);
         ContactDao contactDao = new ContactDao(v);
         contactModel.addAll(contactDao.select());
-        sort(contactModel);
+        lineChartView = v.findViewById(R.id.chart);
+        Collections.sort(contactModel, (o1, o2) -> {
+            if (o1.getDate() == null || o2.getDate() == null)
+                return 0;
 
-        datePoint = new DataPoint[contactModel.size()];
-
-        int i = 0;
-
-
-        String dateFirst[] = contactModel.get(0).getDate().split(":");
-
-        for (ContactModel item : contactModel) {
-          //  String date[] = item.getDate().split(":");
-           // datePoint[i] = (new DataPoint(Integer.parseInt(date[0]), item.getTogether()));
             SimpleDateFormat format = new SimpleDateFormat("dd:MM:yyyy");
+            Date date1 = null;
+            Date date2 = null;
             try {
-                Date date= format.parse(item.getDate());
-               datePoint[i] = (new DataPoint(date, item.getTogether()));
+                date1 = format.parse(o1.getDate());
+                date2=format.parse(o2.getDate());
 
             } catch (ParseException e) {
                 e.printStackTrace();
             }
-
-            i++;
-        }
-
-
-        GraphView graph = v.findViewById(R.id.graph);
-        LineGraphSeries<DataPoint> series = new LineGraphSeries<>(datePoint);
-        graph.addSeries(series);
-
-        graph.getViewport().setXAxisBoundsManual(true);
-        SimpleDateFormat format = new SimpleDateFormat("dd:MM:yyyy");
-        try {
-            Date date= format.parse(contactModel.get(0).getDate());
-
-            graph.getViewport().setMinX(date.getTime()-10000000);
-            date= format.parse(contactModel.get(1).getDate());
-
-            graph.getViewport().setMaxX(date.getTime()+10000000);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
- graph.getGridLabelRenderer().setLabelFormatter(new DateAsXAxisLabelFormatter(graph.getContext()));
-
-        graph.getGridLabelRenderer().setNumHorizontalLabels(3);
-
-        graph.getViewport().setScrollable(true);
-
-
-        graph.getLegendRenderer().setVisible(true);
-
-        graph.getLegendRenderer().setAlign(LegendRenderer.LegendAlign.TOP);
+            return date1.compareTo( date2);
+        });
+        lineChartView.setOnClickListener(t -> {
+            Intent in = new Intent(v.getContext(), BigGraphics.class);
+            in.putExtra("graphics", contactModel);
+            startActivity(in);
+        });
+        graphics();
         return v;
-
-
     }
 
-    void sort(ArrayList<ContactModel> contactModels) {
+    void graphics( ) {
 
-        for (int j = 0; j < contactModels.size(); j++) {
-            String date11[] = contactModels.get(j).getDate().split(":");
-            for (int i = j; i < contactModels.size(); i++) {
-                String date2[] = contactModels.get(i).getDate().split(":");
-                if (Integer.parseInt(date11[2]) > Integer.parseInt(date2[2])) {
-                    ContactModel item = contactModels.get(i);
-                    contactModels.remove(i);
-                    contactModels.add(i, contactModels.get(j));
-                    int t = contactModels.size();
-                    contactModels.remove(j);
-                    contactModels.add(j, item);
-                }
+        SimpleDateFormat sdf = new SimpleDateFormat("MM");
+        String date = sdf.format(new Date(System.currentTimeMillis()));
+
+        List<PointValue> values = new ArrayList<>();
+        PointValue tempPointValue;
+        for (ContactModel item : contactModel) {
+            String dateFirst[] = item.getDate().split(":");
+            if (Integer.parseInt(date) == Integer.parseInt(dateFirst[1])) {
+                tempPointValue = new PointValue(Float.parseFloat(dateFirst[0]), (float) item.getTogether());
+                values.add(tempPointValue);
             }
+
+        }
+
+        Line line = new Line(values)
+                .setColor(Color.BLUE)
+                .setCubic(false)
+                .setHasPoints(true).setHasLabels(true);
+        List<Line> lines = new ArrayList<Line>();
+        lines.add(line);
+
+        LineChartData data = new LineChartData();
+        data.setLines(lines);
+
+        List<AxisValue> axisValuesForX = new ArrayList<>();
+        List<AxisValue> axisValuesForY = new ArrayList<>();
+        AxisValue tempAxisValue;
+        for (float i = 0; i <= 31; i += 1) {
+            tempAxisValue = new AxisValue(i);
+            tempAxisValue.setLabel(i + "");
+            axisValuesForX.add(tempAxisValue);
+        }
+
+        for (float i = 0; i <= 1000; i += 1) {
+            tempAxisValue = new AxisValue(i);
+            tempAxisValue.setLabel("" + i);
+            axisValuesForY.add(tempAxisValue);
+        }
+        Axis xAxis = new Axis(axisValuesForX);
+        Axis yAxis = new Axis(axisValuesForY);
+        data.setAxisXBottom(xAxis);
+        data.setAxisYLeft(yAxis);
+
+
+        lineChartView.setLineChartData(data);
+    }
+
+    public static class MyObject implements Comparable<ContactModel> {
+
+        private Date dateTime;
+
+        public Date getDateTime() {
+            return dateTime;
+        }
+
+        public void setDateTime(Date datetime) {
+            this.dateTime = datetime;
         }
 
 
-        for (int j = 0; j < contactModels.size(); j++) {
-            String date11[] = contactModels.get(j).getDate().split(":");
-            for (int i = j; i < contactModels.size(); i++) {
-                String date2[] = contactModels.get(i).getDate().split(":");
-                if (Integer.parseInt(date11[1]) > Integer.parseInt(date2[1]) && Integer.parseInt(date11[2]) == Integer.parseInt(date2[2])) {
-                    ContactModel item = contactModels.get(i);
-                    contactModels.remove(i);
-                    contactModels.add(i, contactModels.get(j));
-                    int t = contactModels.size();
-                    contactModels.remove(j);
-                    contactModels.add(j, item);
-                }
-            }
-        }
-        for (int j = 0; j < contactModels.size(); j++) {
-            String date11[] = contactModels.get(j).getDate().split(":");
-            for (int i = j; i < contactModels.size(); i++) {
-                String date2[] = contactModels.get(i).getDate().split(":");
-                if (Integer.parseInt(date11[0]) > Integer.parseInt(date2[0]) && Integer.parseInt(date11[2]) == Integer.parseInt(date2[2])
-                        && Integer.parseInt(date11[1]) == Integer.parseInt(date2[1])) {
-                    ContactModel item = contactModels.get(i);
-                    contactModels.remove(i);
-                    contactModels.add(i, contactModels.get(j));
-                    int t = contactModels.size();
-                    contactModels.remove(j);
-                    contactModels.add(j, item);
-                }
-            }
-        }
+        @Override
+        public int compareTo(@NonNull ContactModel o) {
+            if (getDateTime() == null || o.getDate() == null)
+                return 0;
+            SimpleDateFormat format = new SimpleDateFormat("dd:MM:yyyy");
+            Date date1 = null;
+            try {
+                date1 = format.parse(o.getDate());
 
+
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            return getDateTime().compareTo(date1);
+        }
     }
 }

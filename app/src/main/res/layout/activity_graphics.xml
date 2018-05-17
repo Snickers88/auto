@@ -10,9 +10,11 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".Graphics" >
 
-    <com.jjoe64.graphview.GraphView
+
+    <lecho.lib.hellocharts.view.LineChartView
+        android:id="@+id/chart"
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:id="@+id/graph" />
+        />
 
 </LinearLayout>
