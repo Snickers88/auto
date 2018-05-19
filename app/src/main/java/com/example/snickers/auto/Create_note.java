@@ -98,18 +98,45 @@ public class Create_note extends AppCompatActivity {
 
         floatingActionButton.setOnClickListener(t -> {
             ContactDao contactDao = new ContactDao(t);
+
         if (item == (null)){
 
+               int     distancenew =0;
+            double     volumenew = 0;
+            double    pricenew = 0;
+            double    togethernew =0;
 
-          if(contactDao.add(etdatecreate1.getText().toString(),
-                    Integer.parseInt(etdistancecreate1.getText().toString()),
-                    Double.parseDouble(etvolumecreate1.getText().toString()),
-                    Double.parseDouble(etpricecreate1.getText().toString()),
-                 //   Double.parseDouble(s2),
-                   // Double.parseDouble(ettogethercreate1.getText().toString()),
 
-                  Double.parseDouble (etvolumecreate1.getText().toString()) * Double.parseDouble(etpricecreate1.getText().toString()),
-       spinner.getSelectedItem().toString()
+            if(etdistancecreate1.getText().length()==0){
+                distancenew= 0;
+            }else{
+                distancenew= Integer.parseInt(etdistancecreate1.getText().toString()+"");
+                }
+
+                if (etvolumecreate1.getText().length() == 0 || etpricecreate1.getText().length() == 0 ||
+                        ettogethercreate1.getText().length() == 0) {
+                    volumenew = 0;
+                    pricenew =0;
+                    togethernew = 0;
+                } else {
+                    volumenew = (Double.parseDouble(etvolumecreate1.getText().toString() + ""));
+                    pricenew =  Double.parseDouble(etpricecreate1.getText().toString() + "");
+
+
+                    togethernew =  volumenew * pricenew;
+
+
+            }
+          if(contactDao.add(etdatecreate1.getText().toString()+"",
+                  distancenew,
+                  volumenew,
+                  pricenew,
+                  togethernew,
+                  //  Double.parseDouble(etvolumecreate1.getText().toString()+""),
+                  //  Double.parseDouble(etpricecreate1.getText().toString()+""),
+
+                 // Double.parseDouble (etvolumecreate1.getText().toString()+"") * Double.parseDouble(etpricecreate1.getText().toString()+""),
+       spinner.getSelectedItem().toString()+""
             )){
               Intent inthomefra = new Intent(this, MainActivity.class);
               inthomefra.putExtra("Create_Note",1);
@@ -118,14 +145,44 @@ public class Create_note extends AppCompatActivity {
               Toast.makeText(this, "Error data", Toast.LENGTH_SHORT).show();
 
           }}else{
+            int distancenew= 0;
+            double volumenew= 0;
+            double pricenew= 0;
+            double togethernew= 0;
+            if(etdistancecreate1.getText().length()==0){
+                distancenew= 0;
+            }else{
+                distancenew= Integer.parseInt(etdistancecreate1.getText().toString()+"");
+            }
+
+            if (etvolumecreate1.getText().length() == 0 || etpricecreate1.getText().length() == 0 ||
+                    ettogethercreate1.getText().length() == 0) {
+                volumenew = 0;
+                pricenew =0;
+                togethernew = 0;
+            } else {
+                volumenew = (Double.parseDouble(etvolumecreate1.getText().toString() + ""));
+                pricenew =  Double.parseDouble(etpricecreate1.getText().toString() + "");
+
+
+                togethernew =  volumenew * pricenew;
+
+
+            }
+
             if(contactDao.update(item.get_id(),
                     etdatecreate1.getText().toString(),
-                    Integer.parseInt(etdistancecreate1.getText().toString()),
-                    Double.parseDouble(etvolumecreate1.getText().toString()),
-                    Double.parseDouble(etpricecreate1.getText().toString()),
+                    distancenew,
+                    volumenew,
+                    pricenew,
+                    togethernew,
+
+//                    Integer.parseInt(etdistancecreate1.getText().toString()),
+//                    Double.parseDouble(etvolumecreate1.getText().toString()),
+//                    Double.parseDouble(etpricecreate1.getText().toString()),
                     //ettogethercreate1.getText().toString(),
 
-                     Double.parseDouble (etvolumecreate1.getText().toString()) * Double.parseDouble(etpricecreate1.getText().toString()),
+                    // Double.parseDouble (etvolumecreate1.getText().toString()) * Double.parseDouble(etpricecreate1.getText().toString()),
                     spinner.getSelectedItem().toString()
             ))
             {

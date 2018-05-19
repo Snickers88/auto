@@ -5,9 +5,10 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 public class DBHelper extends SQLiteOpenHelper {
-    public  static  final int DATABASE_VERSION = 2;
+    public  static  final int DATABASE_VERSION = 3;
     public  static  final String DATABASE_NAME = "contactDb";
     public  static  final String TABLE_CONTACTS = "contacts";
+    public  static  final String TABLE_EVENTS= "events";
 
 
     public  static  final String KEY_ID = "_id";
@@ -17,6 +18,10 @@ public class DBHelper extends SQLiteOpenHelper {
     public  static  final String KEY_PRICE = "price";
     public  static  final String KEY_TOGETHER = "together";
     public  static  final String KEY_TYPE = "type";
+    public  static  final String KEY_DESCRIPTION = "description";
+
+
+
 
 
 
@@ -34,6 +39,11 @@ public class DBHelper extends SQLiteOpenHelper {
               + KEY_PRICE + " real,"
               + KEY_TOGETHER + " real,"
               + KEY_TYPE + " text" + ")");
+      db.execSQL("create table " + TABLE_EVENTS + "("
+                + KEY_ID + " integer primary key,"
+                + KEY_DATE + " text,"
+                + KEY_DISTANCE + " integer,"
+                + KEY_DESCRIPTION + " text" + ")");
     }
 
 
@@ -46,6 +56,7 @@ public class DBHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int i, int i1) {
        db.execSQL("drop table if exists " + TABLE_CONTACTS);
+        db.execSQL("drop table if exists " + TABLE_EVENTS);
 
        onCreate(db);
     }

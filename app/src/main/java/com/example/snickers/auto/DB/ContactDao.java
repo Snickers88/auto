@@ -33,6 +33,7 @@ public class ContactDao {
          int idDistance = cursor.getColumnIndex(dbHelper.KEY_DISTANCE);
          int idDate = cursor.getColumnIndex(dbHelper.KEY_DATE);
 
+
          ContactModel item;
          do {
              try {

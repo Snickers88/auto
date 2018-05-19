@@ -27,7 +27,7 @@ public class Create_Reminder extends AppCompatActivity {
         etdateremind = findViewById(R.id.etdateremind);
         etdistanceremind = findViewById(R.id.etdistanceremind);
         etdescriptionremind = findViewById(R.id.etdescriptionremind);
-        addreminder = findViewById(R.id.floatingActionButton3f);
+        addreminder = findViewById(R.id.addreminder);
         etdistanceremind.setRawInputType(InputType.TYPE_CLASS_NUMBER);
 
 
