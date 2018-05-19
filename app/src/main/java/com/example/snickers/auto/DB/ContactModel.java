@@ -12,6 +12,7 @@ public class ContactModel implements Serializable {
     private double together;
     private String type;
 
+
     public int get_id() {
         return _id;
     }
