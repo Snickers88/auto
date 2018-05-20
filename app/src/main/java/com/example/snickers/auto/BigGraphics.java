@@ -44,7 +44,7 @@ public class BigGraphics extends AppCompatActivity {
     private ArrayList<ContactModel> contactModels = new ArrayList<>();
     private LineChartView lineChartView;
     private TextView month;
-    private int monthEnd=0;
+    private int monthEnd = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,14 +60,14 @@ public class BigGraphics extends AppCompatActivity {
             }
 
             public void onSwipeRight() {
-              //  Toast.makeText(BigGraphics.this, "right", Toast.LENGTH_SHORT).show();
+                //  Toast.makeText(BigGraphics.this, "right", Toast.LENGTH_SHORT).show();
                 monthEnd--;
                 graphics(monthEnd);
 
             }
 
             public void onSwipeLeft() {
-               // Toast.makeText(BigGraphics.this, "left", Toast.LENGTH_SHORT).show();
+                // Toast.makeText(BigGraphics.this, "left", Toast.LENGTH_SHORT).show();
                 monthEnd++;
                 graphics(monthEnd);
 
@@ -81,25 +81,23 @@ public class BigGraphics extends AppCompatActivity {
     }
 
     void graphics(int monthEnd) {
-
         SimpleDateFormat sdf = new SimpleDateFormat("MM");
         String date = sdf.format(new Date(System.currentTimeMillis()));
-
-        month.setText("Місяць " + (Integer.parseInt(date)+monthEnd));
+        month.setText("Місяць " + (Integer.parseInt(date) + monthEnd));
         List<PointValue> values = new ArrayList<>();
         PointValue tempPointValue;
         for (ContactModel item : contactModels) {
             String dateFirst[] = item.getDate().split(":");
-            int f=(Integer.parseInt(date));
-            int f1=Integer.parseInt(dateFirst[1]);
-            if ((Integer.parseInt(date) + monthEnd)== Integer.parseInt(dateFirst[1])) {
+            int f = (Integer.parseInt(date));
+            int f1 = Integer.parseInt(dateFirst[1]);
+            if ((Integer.parseInt(date) + monthEnd) == Integer.parseInt(dateFirst[1])) {
                 tempPointValue = new PointValue(Float.parseFloat(dateFirst[0]), (float) item.getTogether());
                 values.add(tempPointValue);
             }
 
         }
-if(values.size()==0)
-    Toast.makeText(BigGraphics.this, "Даних нема", Toast.LENGTH_SHORT).show();
+        if (values.size() == 0)
+            Toast.makeText(BigGraphics.this, "Даних нема", Toast.LENGTH_SHORT).show();
 
         Line line = new Line(values)
                 .setColor(Color.BLUE)
