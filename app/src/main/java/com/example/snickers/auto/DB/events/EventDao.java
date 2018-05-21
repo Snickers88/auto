@@ -1,10 +1,12 @@
-package com.example.snickers.auto.DB;
+package com.example.snickers.auto.DB.events;
 
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 import android.view.View;
+
+import com.example.snickers.auto.DB.DBHelper;
 
 import java.util.ArrayList;
 
@@ -26,7 +28,7 @@ public class EventDao {
         if (cursor.moveToFirst()) {
             int idIndex = cursor.getColumnIndex(dbHelper.KEY_ID);
             int idDate = cursor.getColumnIndex(dbHelper.KEY_DATE);
-            int idDistance = cursor.getColumnIndex(dbHelper.KEY_DATE);
+            int idDistance = cursor.getColumnIndex(dbHelper.KEY_DISTANCE);
             int idDescription = cursor.getColumnIndex(dbHelper.KEY_DESCRIPTION);
 
             EventModel item;
@@ -51,6 +53,7 @@ public class EventDao {
 
         return contacts;
     }
+
     public Boolean add ( String date,
                          int distance,
                          String description

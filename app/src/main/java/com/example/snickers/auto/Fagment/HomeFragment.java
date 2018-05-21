@@ -1,4 +1,4 @@
-package com.example.snickers.auto;
+package com.example.snickers.auto.Fagment;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,23 +11,22 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Adapter;
-import android.widget.RelativeLayout;
 
 import com.example.snickers.auto.Adapter.AutoAdapter;
-import com.example.snickers.auto.DB.ContactDao;
-import com.example.snickers.auto.DB.ContactModel;
-import com.example.snickers.auto.DB.DBHelper;
-import com.jjoe64.graphview.series.DataPoint;
+import com.example.snickers.auto.Create.Create_note;
+import com.example.snickers.auto.DB.contacts.ContactDao;
+import com.example.snickers.auto.DB.contacts.ContactModel;
+import com.example.snickers.auto.R;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.Date;
 
 public class HomeFragment extends Fragment {
+    private AutoAdapter autoAdapter = new AutoAdapter();
+    private ArrayList<ContactModel> contactModels = new ArrayList<>();
 
 
     @Nullable
@@ -36,10 +35,7 @@ public class HomeFragment extends Fragment {
         RecyclerView rv;
         View v = inflater.inflate(R.layout.fragment_home, container, false);
         ContactDao contactdao = new ContactDao(v);
-        AutoAdapter autoAdapter = new AutoAdapter();
-        ArrayList<ContactModel> contactModels = new ArrayList<>();
         contactModels.addAll(contactdao.select());
-
 
         Collections.sort(contactModels, (o1, o2) -> {
             if (o1.getDate() == null || o2.getDate() == null)
@@ -50,12 +46,12 @@ public class HomeFragment extends Fragment {
             Date date2 = null;
             try {
                 date1 = format.parse(o1.getDate());
-                date2=format.parse(o2.getDate());
+                date2 = format.parse(o2.getDate());
 
             } catch (ParseException e) {
                 e.printStackTrace();
             }
-            return date1.compareTo( date2);
+            return date1.compareTo(date2);
         });
         autoAdapter.setDate(contactModels);
 
@@ -72,7 +68,6 @@ public class HomeFragment extends Fragment {
 
 
     }
-
 
 
     public static class MyObject implements Comparable<ContactModel> {
@@ -97,7 +92,7 @@ public class HomeFragment extends Fragment {
             Date date2 = null;
             try {
                 date1 = format.parse(o.getDate());
-                date2=format.parse(getDateTime().toString());
+                date2 = format.parse(getDateTime().toString());
 
             } catch (ParseException e) {
                 e.printStackTrace();

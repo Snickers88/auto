@@ -1,4 +1,4 @@
-package com.example.snickers.auto.DB;
+package com.example.snickers.auto.DB.contacts;
 
 import java.io.Serializable;
 

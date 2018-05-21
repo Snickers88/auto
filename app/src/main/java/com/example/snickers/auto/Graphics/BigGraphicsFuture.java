@@ -1,11 +1,11 @@
-package com.example.snickers.auto;
+package com.example.snickers.auto.Graphics;
 
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.widget.TextView;
 
-import com.example.snickers.auto.DB.ContactModel;
+import com.example.snickers.auto.DB.contacts.ContactModel;
+import com.example.snickers.auto.R;
 
 import java.util.ArrayList;
 import java.util.List;

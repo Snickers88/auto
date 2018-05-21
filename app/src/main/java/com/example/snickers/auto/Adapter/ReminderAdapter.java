@@ -10,21 +10,20 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.example.snickers.auto.Create.Create_note;
-import com.example.snickers.auto.DB.contacts.ContactDao;
-import com.example.snickers.auto.DB.contacts.ContactModel;
+import com.example.snickers.auto.Create.Create_Reminder;
+import com.example.snickers.auto.DB.events.EventDao;
+import com.example.snickers.auto.DB.events.EventModel;
 import com.example.snickers.auto.R;
 
-import java.math.BigDecimal;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 
-public class AutoAdapter extends RecyclerView.Adapter<AutoAdapter.AutoViewHolder> {
+public class ReminderAdapter extends RecyclerView.Adapter<ReminderAdapter.AutoViewHolder> {
     private View v;
 
-    private ArrayList<ContactModel> date = new ArrayList<>();
+    private ArrayList<EventModel> date = new ArrayList<>();
 
-    public void setDate(ArrayList<ContactModel> date) {
+    public void setDate(ArrayList<EventModel> date) {
+        this.date = new ArrayList<>();
         this.date.addAll(date);
         notifyDataSetChanged();
 
@@ -36,24 +35,23 @@ public class AutoAdapter extends RecyclerView.Adapter<AutoAdapter.AutoViewHolder
     public AutoViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         v = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.layout_item, parent, false);
-        return new AutoViewHolder(v);
+        return new ReminderAdapter.AutoViewHolder(v);
     }
 
     @Override
     public void onBindViewHolder(@NonNull AutoViewHolder holder, int position) {
-        DecimalFormat decimalFormat = new DecimalFormat("#,##0.00");
-        ContactModel item = date.get(position);
-        holder.textView.setText(item.getType() + "  " + item.getPrice() + "  " + item.getDistance() + "  " + item.getVolume() + "    " + decimalFormat.format(new BigDecimal(item.getTogether())) + "  " + item.getDate() + "");
+        EventModel item = date.get(position);
+        holder.textView.setText(item.getDescription()+"  " + item.getDistance() + "  " +item.getDate() + "");
         holder.relativelay.setOnLongClickListener(view ->{dialog(v, position); return true;} );
         holder.relativelay.setOnClickListener(view ->{dialogupdate(v, position); } );
-
     }
 
+
     private void dialogupdate(View v, int position) {
-        Intent intentupdate = new Intent(v.getContext() , Create_note.class);
+        Intent intentupdate = new Intent(v.getContext() , Create_Reminder.class);
         intentupdate.putExtra("item",date.get(position));
         v.getContext().
-        startActivity(intentupdate);
+                startActivity(intentupdate);
     }
 
     @Override
@@ -80,11 +78,9 @@ public class AutoAdapter extends RecyclerView.Adapter<AutoAdapter.AutoViewHolder
                 .setCancelable(false)
                 .setPositiveButton("Tак",
                         (dialog, id) -> {
-                            ContactDao contactDao = new ContactDao(v);
-                            if (contactDao.delete(date.get(position).get_id())) {
+                            EventDao eventDao = new EventDao(v);
+                            if (eventDao.delete(date.get(position).get_id())) {
                                 date.remove(position);
-                                // for (int i=0; i <date.size(); i++)
-                                //   if (date.get(i).get_id()== ge)
                                 notifyDataSetChanged();
                             }
                         })

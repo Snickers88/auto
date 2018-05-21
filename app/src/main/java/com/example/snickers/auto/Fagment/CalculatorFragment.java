@@ -1,4 +1,4 @@
-package com.example.snickers.auto;
+package com.example.snickers.auto.Fagment;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -18,12 +18,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.example.snickers.auto.R;
+
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class Calculator extends android.support.v4.app.Fragment  {
+public class CalculatorFragment extends android.support.v4.app.Fragment  {
     EditText etcost, etdistance, etprice;
     TextView tvcost, tvvolume;
     Button button;
