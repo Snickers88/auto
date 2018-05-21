@@ -1,16 +1,12 @@
 package com.example.snickers.auto;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.snickers.auto.DB.ContactModel;
@@ -26,21 +22,12 @@ import lecho.lib.hellocharts.model.Line;
 import lecho.lib.hellocharts.model.LineChartData;
 import lecho.lib.hellocharts.model.PointValue;
 import lecho.lib.hellocharts.view.LineChartView;
-import ru.rambler.libs.swipe_layout.SwipeLayout;
 
-import android.support.v7.widget.helper.ItemTouchHelper.Callback;
-
-import static android.widget.GridLayout.LEFT;
-
-import android.content.Context;
-import android.view.GestureDetector;
 import android.view.GestureDetector.SimpleOnGestureListener;
-import android.view.MotionEvent;
-import android.view.View;
 import android.view.View.OnTouchListener;
 import android.widget.Toast;
 
-public class BigGraphics extends AppCompatActivity {
+public class BigGraphicsNow extends AppCompatActivity {
     private ArrayList<ContactModel> contactModels = new ArrayList<>();
     private LineChartView lineChartView;
     private TextView month;
@@ -56,25 +43,25 @@ public class BigGraphics extends AppCompatActivity {
         graphics(0);
         lineChartView.setOnTouchListener(new OnSwipeTouchListener(this) {
             public void onSwipeTop() {
-                Toast.makeText(BigGraphics.this, "top", Toast.LENGTH_SHORT).show();
+                Toast.makeText(BigGraphicsNow.this, "top", Toast.LENGTH_SHORT).show();
             }
 
             public void onSwipeRight() {
-              //  Toast.makeText(BigGraphics.this, "right", Toast.LENGTH_SHORT).show();
+              //  Toast.makeText(BigGraphicsNow.this, "right", Toast.LENGTH_SHORT).show();
                 monthEnd--;
                 graphics(monthEnd);
 
             }
 
             public void onSwipeLeft() {
-               // Toast.makeText(BigGraphics.this, "left", Toast.LENGTH_SHORT).show();
+               // Toast.makeText(BigGraphicsNow.this, "left", Toast.LENGTH_SHORT).show();
                 monthEnd++;
                 graphics(monthEnd);
 
             }
 
             public void onSwipeBottom() {
-                Toast.makeText(BigGraphics.this, "bottom", Toast.LENGTH_SHORT).show();
+                Toast.makeText(BigGraphicsNow.this, "bottom", Toast.LENGTH_SHORT).show();
             }
 
         });
@@ -99,7 +86,7 @@ public class BigGraphics extends AppCompatActivity {
 
         }
 if(values.size()==0)
-    Toast.makeText(BigGraphics.this, "Даних нема", Toast.LENGTH_SHORT).show();
+    Toast.makeText(BigGraphicsNow.this, "Даних нема", Toast.LENGTH_SHORT).show();
 
         Line line = new Line(values)
                 .setColor(Color.BLUE)
