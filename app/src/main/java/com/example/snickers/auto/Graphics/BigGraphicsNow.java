@@ -1,4 +1,4 @@
-package com.example.snickers.auto;
+package com.example.snickers.auto.Graphics;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -9,7 +9,8 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.TextView;
 
-import com.example.snickers.auto.DB.ContactModel;
+import com.example.snickers.auto.DB.contacts.ContactModel;
+import com.example.snickers.auto.R;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-package com.example.snickers.auto.DB;
+package com.example.snickers.auto.DB.events;
 
 import java.io.Serializable;
 

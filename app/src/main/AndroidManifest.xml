@@ -18,11 +18,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Create_note" />
-        <activity android:name=".Main2Activity" />
-        <activity android:name=".BigGraphicsNow" />
-        <activity android:name=".Create_Reminder" />
-        <activity android:name=".BigGraphicsFuture"></activity>
+        <activity android:name=".Create.Create_note" />
+        <activity android:name=".Graphics.BigGraphicsNow" />
+        <activity android:name=".Create.Create_Reminder" />
+        <activity android:name=".Graphics.BigGraphicsFuture"></activity>
     </application>
 
 </manifest>

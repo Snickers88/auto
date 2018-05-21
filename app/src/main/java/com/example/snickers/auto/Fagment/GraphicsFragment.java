@@ -1,4 +1,4 @@
-package com.example.snickers.auto;
+package com.example.snickers.auto.Fagment;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -11,8 +11,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.snickers.auto.DB.ContactDao;
-import com.example.snickers.auto.DB.ContactModel;
+import com.example.snickers.auto.Graphics.BigGraphicsFuture;
+import com.example.snickers.auto.Graphics.BigGraphicsNow;
+import com.example.snickers.auto.DB.contacts.ContactDao;
+import com.example.snickers.auto.DB.contacts.ContactModel;
+import com.example.snickers.auto.R;
 import com.jjoe64.graphview.series.DataPoint;
 
 import java.text.ParseException;
@@ -30,7 +33,7 @@ import lecho.lib.hellocharts.model.LineChartData;
 import lecho.lib.hellocharts.model.PointValue;
 import lecho.lib.hellocharts.view.LineChartView;
 
-public class Graphics extends Fragment {
+public class GraphicsFragment extends Fragment {
     private DataPoint[] datePoint;
 
     private ArrayList<ContactModel> contactModel = new ArrayList<>();

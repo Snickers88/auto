@@ -1,4 +1,4 @@
-package com.example.snickers.auto.DB;
+package com.example.snickers.auto.DB.contacts;
 
 import android.content.ContentValues;
 import android.database.Cursor;
@@ -6,7 +6,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 import android.view.View;
 
-import com.example.snickers.auto.AutoApplication;
+import com.example.snickers.auto.DB.DBHelper;
 
 import java.util.ArrayList;
 
