@@ -36,23 +36,25 @@ public class HomeFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_home, container, false);
         ContactDao contactdao = new ContactDao(v);
         contactModels.addAll(contactdao.select());
+        try {
+            Collections.sort(contactModels, (o1, o2) -> {
+                if (o1.getDate() == null || o2.getDate() == null)
 
-        Collections.sort(contactModels, (o1, o2) -> {
-            if (o1.getDate() == null || o2.getDate() == null)
+                    return 0;
+                SimpleDateFormat format = new SimpleDateFormat("dd:MM:yyyy");
+                Date date1 = null;
+                Date date2 = null;
+                try {
+                    date1 = format.parse(o1.getDate());
+                    date2 = format.parse(o2.getDate());
 
-                return 0;
-            SimpleDateFormat format = new SimpleDateFormat("dd:MM:yyyy");
-            Date date1 = null;
-            Date date2 = null;
-            try {
-                date1 = format.parse(o1.getDate());
-                date2 = format.parse(o2.getDate());
-
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-            return date1.compareTo(date2);
-        });
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                return date1.compareTo(date2);
+            });
+        } catch (Exception e) {
+        }
         autoAdapter.setDate(contactModels);
 
         rv = v.findViewById(R.id.rvListview);

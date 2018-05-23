@@ -104,7 +104,7 @@ public class ReminderFragment extends Fragment {
                     e.printStackTrace();
                 }
 
-                if (date1 != null && date2 != null && date1.compareTo(date2) < 0) {
+                if (date1 != null && date2 != null && date1.compareTo(date2) <= 0) {
                     distantion += itemContact.getDistance();
                 }
 
