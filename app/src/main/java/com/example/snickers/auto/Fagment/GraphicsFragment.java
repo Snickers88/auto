@@ -51,6 +51,7 @@ public class GraphicsFragment extends Fragment {
         contactModel.addAll(contactDao.select());
         graphicsNow = v.findViewById(R.id.graphicsNow);
         graphicsFuture = v.findViewById(R.id.graphicsFuture);
+        try{
         Collections.sort(contactModel, (o1, o2) -> {
             if (o1.getDate() == null || o2.getDate() == null)
                 return 0;
@@ -66,7 +67,7 @@ public class GraphicsFragment extends Fragment {
                 e.printStackTrace();
             }
             return date1.compareTo(date2);
-        });
+        });}catch (Exception e){}
         graphicsNow.setOnClickListener(t -> {
             Intent in = new Intent(v.getContext(), BigGraphicsNow.class);
             in.putExtra("graphics", contactModel);
@@ -193,7 +194,9 @@ public class GraphicsFragment extends Fragment {
         for (ContactModel item : contactModelsFuture) {
             price = item.getPrice();
             volume = item.getVolume();
-            price *= 100;
+            if(price==0||volume==0)
+break;
+                price *= 100;
             volume *= 1000;
             int priceCout = r.nextInt((int) (price / 10));
            // int t = (int) (volume / 12);
