@@ -6,10 +6,12 @@
     <string name="distance">Distance</string>
     <string name="price">Price</string>
     <string name="together">Together</string>
+    <string name="inputdatetext">Вкажіть вхідні дані</string>
 
 
     //---
     <string-array name="fuel">
+
         <item>D</item>
         <item>A95</item>
         <item>A92</item>

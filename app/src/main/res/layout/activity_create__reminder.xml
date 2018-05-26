@@ -9,15 +9,15 @@
 
     <EditText
         android:id="@+id/etdescriptionremind"
-        android:layout_width="wrap_content"
+        android:layout_width="271dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="31dp"
+        android:layout_alignStart="@+id/imageView3"
+        android:layout_below="@+id/divider3"
         android:ems="10"
         android:gravity="start"
+        android:hint="Description"
         android:inputType="textMultiLine"
-        tools:text="Name" />
+        />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/addreminder"
@@ -25,8 +25,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginBottom="147dp"
-        android:layout_marginEnd="55dp"
+        android:layout_marginBottom="77dp"
+        android:layout_marginEnd="47dp"
         android:clickable="true"
         app:srcCompat="@android:drawable/ic_input_add" />
 
@@ -34,22 +34,73 @@
         android:id="@+id/etdateremind"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginBottom="158dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignStart="@+id/etdistanceremind"
+        android:layout_marginTop="27dp"
         android:ems="10"
         android:inputType="textPersonName"
-        tools:text="Name" />
+        tools:text="Name"
+        android:textColor="@color/colorText"/>
 
     <EditText
         android:id="@+id/etdistanceremind"
-        android:layout_width="wrap_content"
+        android:layout_width="178dp"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="156dp"
+        android:layout_marginStart="72dp"
+        android:layout_marginTop="107dp"
         android:ems="10"
+        android:hint="100"
         android:inputType="textPersonName"
-        tools:text="Name" />
+        android:textColor="@color/colorText" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/etdateremind"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="14dp"
+        app:srcCompat="@mipmap/ic_calendar" />
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignStart="@+id/imageView3"
+        android:layout_marginTop="97dp"
+        app:srcCompat="@mipmap/ic_distan" />
+
+    <View
+        android:id="@+id/divider3"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="175dp"
+        android:background="?android:attr/listDivider"
+        android:backgroundTintMode="@color/cardview_dark_background" />
+
+    <View
+        android:id="@+id/divider4"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="148dp"
+        android:background="?android:attr/listDivider"
+        android:backgroundTintMode="@color/cardview_dark_background" />
+
+    <TextView
+        android:id="@+id/textView14"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/etdistanceremind"
+        android:layout_alignEnd="@+id/etdescriptionremind"
+        android:text="км"
+        android:textColor="@color/colorText"
+        android:textSize="20dp" />
 
 </RelativeLayout>
