@@ -11,63 +11,72 @@
         android:id="@+id/etdistancecreate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="27dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="76dp"
         android:ems="10"
-        android:inputType="textPersonName"
-        tools:text="Name"
         android:hint="@string/distance"
+        android:inputType="textPersonName"
+        android:textColor="@color/colorText"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        tools:text="Name" />
 
     <EditText
         android:id="@+id/etpricecreate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
+        android:textColor="@color/colorText"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="130dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="155dp"
         android:ems="10"
         android:hint="@string/price"
         android:inputType="textPersonName"
-        tools:text="Name"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Name" />
 
     <EditText
         android:id="@+id/ettogether"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="210dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="187dp"
         android:ems="10"
+        android:hint="@string/together"
         android:inputType="textPersonName"
         android:singleLine="false"
-        tools:text="Name"
-        android:hint="@string/together"
+        android:textColor="@color/colorText"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Name" />
 
     <EditText
         android:id="@+id/etvolumecreate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/ettogether"
-        android:layout_marginTop="-176dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="217dp"
         android:ems="10"
         android:hint="Volume"
+        android:textColor="@color/colorText"
         android:inputType="textPersonName"
         tools:text="Name" />
 
     <Spinner
         android:id="@+id/spinner"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="52dp"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_width="215dp"
+        android:layout_height="42dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="134dp"
+        android:textColor="#3f50a3"
+        android:backgroundTint="@color/colorText"
         app:layout_constraintBottom_toBottomOf="parent"
-        />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/floatingActionButton3f"
@@ -75,8 +84,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginBottom="147dp"
-        android:layout_marginEnd="55dp"
+        android:layout_marginBottom="47dp"
+        android:layout_marginEnd="40dp"
         android:clickable="true"
         app:srcCompat="@android:drawable/ic_input_add" />
 
@@ -84,10 +93,81 @@
         android:id="@+id/etdatecreate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignTop="@+id/floatingActionButton3f"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Date" />
+        android:text="Date"
+        android:textColor="@color/colorText"/>
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignTop="@+id/etdatecreate"
+        android:layout_marginStart="23dp"
+        app:srcCompat="@mipmap/ic_calendar" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/etdistancecreate"
+        android:layout_alignStart="@+id/imageView"
+        app:srcCompat="@mipmap/ic_distan" />
+
+    <View
+        android:id="@+id/divider5"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="141dp"
+        android:backgroundTintMode="@color/cardview_dark_background"
+        android:background="?android:attr/listDivider" />
+
+    <ImageView
+        android:id="@+id/imageView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/imageView"
+        android:layout_alignTop="@+id/etvolumecreate"
+        app:srcCompat="@mipmap/ic_local_gas_station" />
+
+    <ImageView
+        android:id="@+id/imageView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/imageView"
+        android:layout_alignTop="@+id/ettogether"
+        app:srcCompat="@mipmap/ic_toget" />
+
+    <ImageView
+        android:id="@+id/imageView7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/imageView"
+        android:layout_alignTop="@+id/etpricecreate"
+        app:srcCompat="@mipmap/ic_price" />
+
+    <ImageView
+        android:id="@+id/imageView8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/imageView"
+        android:layout_alignTop="@+id/spinner"
+        app:srcCompat="@mipmap/ic_type" />
+
+    <View
+        android:id="@+id/divider6"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="117dp"
+        android:background="?android:attr/listDivider"
+        android:backgroundTintMode="@color/cardview_dark_background"/>
 
 </RelativeLayout>
