@@ -43,14 +43,13 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="187dp"
+        android:layout_marginBottom="193dp"
         android:ems="10"
         android:hint="@string/together"
         android:inputType="textPersonName"
-        android:singleLine="false"
+
         android:textColor="@color/colorText"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+
         tools:text="Name" />
 
     <EditText
