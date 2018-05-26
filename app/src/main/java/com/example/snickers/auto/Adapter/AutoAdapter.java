@@ -43,7 +43,14 @@ public class AutoAdapter extends RecyclerView.Adapter<AutoAdapter.AutoViewHolder
     public void onBindViewHolder(@NonNull AutoViewHolder holder, int position) {
         DecimalFormat decimalFormat = new DecimalFormat("#,##0.00");
         ContactModel item = date.get(position);
-        holder.textView.setText(item.getType() + "  " + item.getPrice() + "  " + item.getDistance() + "  " + item.getVolume() + "    " + decimalFormat.format(new BigDecimal(item.getTogether())) + "  " + item.getDate() + "");
+
+        holder.tvdatenote.setText(item.getDate()+"");
+        holder.tvdistancenote.setText(item.getDistance()+"");
+        holder.tvvolumenote.setText(item.getVolume()+"");
+        holder.tvpricenote.setText(item.getPrice()+"");
+        holder.tvtogethernote.setText(decimalFormat.format(new BigDecimal(item.getTogether()))+"");
+        holder.tvtypenote.setText(item.getType()+"");
+
         holder.relativelay.setOnLongClickListener(view ->{dialog(v, position); return true;} );
         holder.relativelay.setOnClickListener(view ->{dialogupdate(v, position); } );
 
@@ -62,13 +69,18 @@ public class AutoAdapter extends RecyclerView.Adapter<AutoAdapter.AutoViewHolder
     }
 
     public class AutoViewHolder extends RecyclerView.ViewHolder {
-        TextView textView;
+        TextView tvdatenote, tvdistancenote,tvtypenote,tvtogethernote,tvpricenote,tvvolumenote;
         RelativeLayout relativelay;
 
         public AutoViewHolder(View itemView) {
 
             super(itemView);
-            textView = itemView.findViewById(R.id.textView);
+            tvdatenote = itemView.findViewById(R.id.tvdatenote);
+            tvdistancenote = itemView.findViewById(R.id.tvdistancenote);
+            tvtypenote = itemView.findViewById(R.id.tvtypenote);
+            tvtogethernote = itemView.findViewById(R.id.tvtogethernote);
+            tvpricenote = itemView.findViewById(R.id.tvpricenote);
+            tvvolumenote = itemView.findViewById(R.id.tvvolumenote);
             relativelay = itemView.findViewById(R.id.relativelay);
         }
     }
