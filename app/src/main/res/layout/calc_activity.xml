@@ -48,16 +48,18 @@
         android:layout_alignBottom="@+id/textView9"
         android:layout_alignStart="@+id/tvvolume"
         android:textColor="@color/colorText"
-        tools:text="sds" />
+        tools:text="sds"
+        android:textSize="18dp"/>
 
     <TextView
         android:id="@+id/tvvolume"
         android:layout_width="58dp"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/textView10"
-        android:layout_alignEnd="@+id/etdistance"
+        android:layout_alignEnd="@+id/textView5"
         android:textColor="@color/colorText"
-        tools:text="sds" />
+        tools:text="sds"
+        android:textSize="18dp"/>
 
     <View
         android:id="@+id/divider"
@@ -151,64 +153,77 @@
         android:layout_height="5dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
-        android:layout_marginBottom="236dp"
+        android:layout_marginBottom="219dp"
         android:background="?android:attr/listDivider"
         android:backgroundTintMode="@color/cardview_dark_background" />
 
     <TextView
         android:id="@+id/textView9"
-        android:layout_width="wrap_content"
+        android:layout_width="295dp"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/textView2"
-        android:layout_toStartOf="@+id/textView12"
-        android:layout_below="@+id/textView11"
-        android:layout_marginTop="35dp"
+        android:layout_below="@+id/textView"
+        android:layout_marginEnd="-29dp"
+        android:layout_toStartOf="@+id/textView5"
         android:text="Вартість заправлення"
         android:textColor="@color/colorText"
-        android:textSize="15dp" />
+        android:textSize="18dp" />
 
     <TextView
         android:id="@+id/textView10"
-        android:layout_width="wrap_content"
+        android:layout_width="294dp"
         android:layout_height="wrap_content"
-        android:layout_toStartOf="@+id/textView13"
-        android:layout_alignStart="@+id/textView2"
-        android:layout_below="@+id/textView9"
+        android:layout_below="@+id/tvcost"
+        android:layout_marginEnd="-28dp"
+        android:layout_toStartOf="@+id/textView5"
         android:text="Необхідний об'єм палива"
         android:textColor="@color/colorText"
-        android:textSize="15dp" />
+        android:textSize="18dp" />
 
     <TextView
         android:id="@+id/textView11"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textView4"
-        android:layout_alignStart="@+id/textView2"
-        android:layout_marginTop="45dp"
+        android:layout_alignStart="@+id/textView10"
+        android:layout_alignTop="@+id/divider2"
         android:text="Результат"
         android:textColor="@color/colorText"
-        android:textSize="15dp" />
+        android:textSize="18dp" />
 
     <TextView
         android:id="@+id/textView12"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/tvcost"
-        android:layout_alignStart="@+id/textView5"
+        android:layout_alignTop="@+id/tvcost"
+        android:layout_toEndOf="@+id/tvcost"
         android:text="грн"
-        android:layout_marginTop="35dp"
-        android:layout_below="@+id/textView11"
         android:textColor="@color/colorText"
-        android:textSize="15dp"/>
+        android:textSize="18dp" />
 
     <TextView
         android:id="@+id/textView13"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/tvvolume"
-        android:layout_alignStart="@+id/textView5"
+        android:layout_below="@+id/tvcost"
+        android:layout_toEndOf="@+id/tvcost"
         android:text="л"
         android:textColor="@color/colorText"
-        android:textSize="15dp"/>
+        android:textSize="18dp" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="293dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView11"
+        android:layout_marginEnd="-28dp"
+        android:layout_toStartOf="@+id/textView5"
+        tools:text="TextView" />
+
+    <View
+        android:id="@+id/divider13"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true"
+        android:background="?android:attr/listDivider" />
 
 </RelativeLayout>
