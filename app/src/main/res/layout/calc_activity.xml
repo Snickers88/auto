@@ -13,7 +13,8 @@
         android:layout_alignStart="@+id/etcost"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="" />
+        android:text=""
+        android:textColor="@color/colorText"/>
 
     <EditText
         android:id="@+id/etcost"
@@ -21,6 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/textView3"
         android:layout_alignParentEnd="true"
+        android:textColor="@color/colorText"
         android:layout_marginEnd="107dp"
         android:ems="10"
         android:inputType="textPersonName"
@@ -30,7 +32,7 @@
         android:id="@+id/etprice"
         android:layout_width="90dp"
         android:layout_height="wrap_content"
-
+        android:textColor="@color/colorText"
         android:layout_alignParentTop="true"
         android:layout_alignStart="@+id/etdistance"
         android:layout_marginTop="197dp"
@@ -40,27 +42,27 @@
 
     <TextView
         android:id="@+id/tvcost"
-        android:layout_width="73dp"
-        android:layout_height="30dp"
-
-
+        android:layout_width="58dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
         android:layout_alignBottom="@+id/textView9"
         android:layout_alignStart="@+id/tvvolume"
+        android:textColor="@color/colorText"
         tools:text="sds" />
 
     <TextView
         android:id="@+id/tvvolume"
-        android:layout_width="76dp"
-        android:layout_height="31dp"
-
+        android:layout_width="58dp"
+        android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/textView10"
         android:layout_alignEnd="@+id/etdistance"
+        android:textColor="@color/colorText"
         tools:text="sds" />
 
     <View
         android:id="@+id/divider"
         android:layout_width="match_parent"
-        android:layout_height="3dp"
+        android:layout_height="1dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginTop="24dp"
@@ -110,7 +112,6 @@
         android:text="км"
         android:textColor="@color/colorText"
         android:textSize="20dp" />
-
     <TextView
         android:id="@+id/textView6"
         android:layout_width="wrap_content"
@@ -147,7 +148,7 @@
     <View
         android:id="@+id/divider2"
         android:layout_width="match_parent"
-        android:layout_height="2dp"
+        android:layout_height="5dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
         android:layout_marginBottom="236dp"
@@ -158,10 +159,11 @@
         android:id="@+id/textView9"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
         android:layout_alignStart="@+id/textView2"
-        android:layout_marginBottom="144dp"
-        android:text="Необхідний об'єм палива"
+        android:layout_toStartOf="@+id/textView12"
+        android:layout_below="@+id/textView11"
+        android:layout_marginTop="35dp"
+        android:text="Вартість заправлення"
         android:textColor="@color/colorText"
         android:textSize="15dp" />
 
@@ -169,11 +171,10 @@
         android:id="@+id/textView10"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-
+        android:layout_toStartOf="@+id/textView13"
         android:layout_alignStart="@+id/textView2"
-        android:layout_marginBottom="109dp"
-        android:text="Вартість заправлення"
+        android:layout_below="@+id/textView9"
+        android:text="Необхідний об'єм палива"
         android:textColor="@color/colorText"
         android:textSize="15dp" />
 
@@ -181,10 +182,9 @@
         android:id="@+id/textView11"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-
-        android:layout_alignParentBottom="true"
+        android:layout_below="@+id/textView4"
         android:layout_alignStart="@+id/textView2"
-        android:layout_marginBottom="200dp"
+        android:layout_marginTop="45dp"
         android:text="Результат"
         android:textColor="@color/colorText"
         android:textSize="15dp" />
@@ -195,7 +195,9 @@
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/tvcost"
         android:layout_alignStart="@+id/textView5"
-        android:text="л"
+        android:text="грн"
+        android:layout_marginTop="35dp"
+        android:layout_below="@+id/textView11"
         android:textColor="@color/colorText"
         android:textSize="15dp"/>
 
@@ -205,7 +207,7 @@
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/tvvolume"
         android:layout_alignStart="@+id/textView5"
-        android:text="грн"
+        android:text="л"
         android:textColor="@color/colorText"
         android:textSize="15dp"/>
 
