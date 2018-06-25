@@ -3,6 +3,7 @@ package com.example.snickers.auto.Adapter;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -60,7 +61,7 @@ public class AutoAdapter extends RecyclerView.Adapter<AutoAdapter.AutoViewHolder
         Intent intentupdate = new Intent(v.getContext() , Create_note.class);
         intentupdate.putExtra("item",date.get(position));
         v.getContext().
-        startActivity(intentupdate);
+                startActivity(intentupdate);
     }
 
     @Override
@@ -70,7 +71,7 @@ public class AutoAdapter extends RecyclerView.Adapter<AutoAdapter.AutoViewHolder
 
     public class AutoViewHolder extends RecyclerView.ViewHolder {
         TextView tvdatenote, tvdistancenote,tvtypenote,tvtogethernote,tvpricenote,tvvolumenote;
-        RelativeLayout relativelay;
+        ConstraintLayout relativelay;
 
         public AutoViewHolder(View itemView) {
 
@@ -84,7 +85,6 @@ public class AutoAdapter extends RecyclerView.Adapter<AutoAdapter.AutoViewHolder
             relativelay = itemView.findViewById(R.id.relativelay);
         }
     }
-
     void dialog(View v, int position) {
         AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
         builder.setTitle("Delete")
